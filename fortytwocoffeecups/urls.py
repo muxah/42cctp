@@ -1,10 +1,10 @@
 from django.conf.urls.defaults import *
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from bcard.views import home
+
 
 urlpatterns = patterns('',
+    (r'^$', home),
     # Example:
     # (r'^fortytwocoffeecups/', include('fortytwocoffeecups.foo.urls')),
 
