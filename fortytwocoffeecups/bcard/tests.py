@@ -18,4 +18,19 @@ True
 >>> response.status_code
 200
 
+>>> rc = response.content
+>>> rc
+'<!DOCTYPE html ...'
+
+>>> from models import BusinessCard as BC
+>>> bc = BC.objects.get(pk=1)
+>>> bc.first_name in rc
+True
+>>> bc.last_name in rc
+True
+>>> bc.email in rc
+True
+>>> bc.description in rc
+True
+
 """}
