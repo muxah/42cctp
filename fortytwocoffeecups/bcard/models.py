@@ -11,12 +11,13 @@ class BusinessCard(models.Model):
 
     # Only one though:
     >>> second = BusinessCard.objects.get(pk=2)
-    ...
+    Traceback (most recent call last):
+        ...
     DoesNotExist: ...
 
     # It is possible to add new bcard.
-    >>> info = {first_name: 'Dude', last_name: 'Awesomer',}
-    >>> bc = BusinessCard.objects.create(**info)
+    >>> bc = BusinessCard(first_name='Dude', last_name='Awesomer')
+    >>> bc.save()
 
     # And fullfill it with the rest information and get it back:
     >>> bc.email = 'dude@awesomer.info'
@@ -24,7 +25,7 @@ class BusinessCard(models.Model):
     >>> bc.save()
     >>> bc.email
     'dude@awesomer.info'
-    >>> bd.description
+    >>> bc.description
     'Some stuff about me goes here.'
     >>> bc.first_name
     'Dude'
