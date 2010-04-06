@@ -7,11 +7,16 @@ class RecordedRequest(models.Model):
 
     # It is possible to store new request:
     >>> dummy_request = {'dummy':'request'}
-    >>> rr = RecordedRequest(request=dummy_request)
+    >>> rr = RecordedRequest(request=repr(dummy_request))
     >>> rr.save()
 
     # And retreive it back looking exactly the same:
-    >>> rr.get_request() == request
+    >>> rr.get_request() == dummy_request
     True
 
     """
+
+    request = models.TextField(max_length=10000)
+
+    def get_request(self):
+        return eval(self.request)
