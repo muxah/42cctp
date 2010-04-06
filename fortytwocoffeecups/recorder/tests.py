@@ -1,12 +1,25 @@
 from django.test import TestCase
+from django.test.client import Client
+from models import RecordedRequest
+
+class RequestIsStoredTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.d = {'one': 1, 'two': 2}
+        self.expected = "%s:<QueryDict: {u'two': [u'2'], u'one': [u'1']}"
+
+    def test_get_is_stored(self):
+        self.client.get('/', self.d)
+        request = RecordedRequest.objects.latest('pk').request
+        e = self.expected % 'GET'
+        self.failUnless(e in request)
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+    def test_post_is_stored(self):
+        self.client.post('/', self.d)
+        request = RecordedRequest.objects.latest('pk').request
+        e = self.expected % 'POST'
+        self.failUnless(e in request)
 
 
 __test__ = {"doctest": """
@@ -31,5 +44,4 @@ TypeError: process_request() takes exactly 2 ...
 True
 
 >>> from models import RecordedRequest as RR
-
 """}
