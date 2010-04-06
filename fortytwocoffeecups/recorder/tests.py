@@ -19,4 +19,6 @@ TypeError: process_request() takes exactly 2 ...
 >>> 'recorder.middleware.RecordingMiddleware' in MC
 True
 
+>>> from models import RecordedRequest as RR
+
 """}
