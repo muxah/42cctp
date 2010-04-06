@@ -20,7 +20,7 @@ True
 
 >>> rc = response.content
 >>> rc
-'<!DOCTYPE html ...'
+'<!DOCTYPE html...'
 
 >>> from models import BusinessCard as BC
 >>> bc = BC.objects.get(pk=1)
