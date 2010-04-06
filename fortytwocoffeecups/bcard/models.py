@@ -33,3 +33,8 @@ class BusinessCard(models.Model):
     'Awesomer'
 
     """
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    description = models.TextField(max_length=1000, blank=True)
+    email = models.EmailField(blank=True)
