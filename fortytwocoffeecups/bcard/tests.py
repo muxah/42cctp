@@ -87,6 +87,11 @@ class EditBCViewTest(TestCase):
             self.assertTrue(('http://testserver/', 302) in response.redirect_chain)
             self.assertTrue('home.html' in [t.name for t in response.template])
 
+            person = BusinessCard.objects.get(pk=1)
+            for k, v in d.items():
+                if v:
+                    self.assertEqual(unicode(v), getattr(person, k))
+
 
 __test__ = {"doctest": """
 >>> from bcard.views import home
