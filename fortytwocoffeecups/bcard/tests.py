@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.test.client import Client
 import django
 
+BCARD_FIELDS = ('first_name', 'last_name', 'email', 'description',)
+
 
 class TemlateContextProcessorsTest(TestCase):
 
@@ -37,7 +39,7 @@ class EditBCFormTest(TestCase):
             self.assertTrue(isinstance(EditBusinessCardForm, cls))
             fields = [f.name for f in EditBusinessCardForm().visible_fields()]
 
-            for a in ('first_name', 'last_name', 'email', 'description',):
+            for a in BCARD_FIELDS:
                 self.assertTrue(a in fields)
 
     def test_integration(self):
@@ -67,6 +69,19 @@ class EditBCViewTest(TestCase):
             else:
                 cls = django.http.HttpResponse
                 self.assertTrue(isinstance(response, cls))
+
+        response = self.client.get('/edit/', {})
+
+        try:
+            response.context['form']
+        except KeyError:
+            self.fail('context has no form key')
+
+        ids = ['id_%s' % a for a in BCARD_FIELDS]
+        for id in ids:
+            self.assertTrue(id in response.content)
+
+        self.assertTrue('method="post"' in response.content)
 
     def test_integration(self):
         try:
