@@ -32,7 +32,7 @@ class EditBCFormTest(TestCase):
             self.fail(e)
         else:
             import django
-            cls = django.forms.forms.DeclarativeFieldsMetaclass
+            cls = django.forms.models.ModelFormMetaclass
             self.assertTrue(isinstance(EditBusinessCardForm, cls))
 
             for a in ('first_name', 'last_name', 'email', 'description',):
