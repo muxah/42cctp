@@ -23,6 +23,28 @@ class TemlateContextProcessorsTest(TestCase):
             self.assertTrue(cpf in TEMPLATE_CONTEXT_PROCESSORS)
 
 
+class EditBCFormTest(TestCase):
+
+    def test_existence_and_format(self):
+        try:
+            from bcard.form import EditBusinessCardForm
+        except ImportError as e:
+            self.fail(e)
+        else:
+            import django
+            cls = django.forms.forms.DeclarativeFieldsMetaclass
+            self.assertTrue(isinstance(EditBusinessCardForm, cls))
+
+            for a in ('first_name', 'last_name', 'email', 'description',):
+                self.assertTrue(hasattr(EditBusinessCardForm, a))
+
+    def test_integration(self):
+        try:
+            from views import EditBusinessCardForm
+        except ImportError as e:
+            self.fail(e)
+
+
 __test__ = {"doctest": """
 >>> from bcard.views import home
 >>> home()
