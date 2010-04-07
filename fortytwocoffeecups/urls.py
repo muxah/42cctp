@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.conf import settings
 
 from bcard.views import home
 from bcard.views import edit
@@ -16,4 +17,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
+)
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^%s(.*)' % settings.MEDIA_URL, 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT}),
 )
