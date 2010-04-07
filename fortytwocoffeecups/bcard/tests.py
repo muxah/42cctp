@@ -77,7 +77,7 @@ class EditBCViewTest(TestCase):
         for d in (empty, optional, incorrect):
             response = self.client.post(self.url, d)
             self.assertEqual(response.status_code, 200)
-            self.assertTrue('class="errorlist"' in response.content)
+            self.assertTrue('class="error"' in response.content)
             self.assertTrue("name='csrfmiddlewaretoken'" in response.content)
             self.assertTrue('edit.html' in [t.name for t in response.template])
 
