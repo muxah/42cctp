@@ -1,4 +1,5 @@
 from django.test import TestCase
+import django
 
 
 class TemlateContextProcessorsTest(TestCase):
@@ -31,7 +32,6 @@ class EditBCFormTest(TestCase):
         except ImportError as e:
             self.fail(e)
         else:
-            import django
             cls = django.forms.models.ModelFormMetaclass
             self.assertTrue(isinstance(EditBusinessCardForm, cls))
             fields = [f.name for f in EditBusinessCardForm().visible_fields()]
@@ -44,6 +44,25 @@ class EditBCFormTest(TestCase):
             from views import EditBusinessCardForm
         except ImportError as e:
             self.fail(e)
+
+
+class EditBCViewTest(TestCase):
+
+    def test_existance_and_format(self):
+        try:
+            from views import edit
+        except ImportError as e:
+            self.fail(e)
+        else:
+            self.assertRaises(TypeError, edit)
+
+            try:
+                response = edit('dummy_request')
+            except django.template.TemplateDoesNotExist as e:
+                self.fail('TemplateDoesNotExist: %s' % e)
+            else:
+                cls = django.http.HttpResponse
+                self.assertTrue(isinstance(response, cls))
 
 
 __test__ = {"doctest": """
