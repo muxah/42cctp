@@ -5,5 +5,7 @@
         <p>{{ person.first_name }}&nbsp;{{ person.last_name }}
         <p><a href="emailto:{{ person.email }}">{{ person.email }}</a>
         <p>{{ person.description }}
-    {% endif %}
+        <br />
+        <p><a href="{% url bcard.views.edit %}">edit</a>
+        {% endif %}
 {% endblock body%}
