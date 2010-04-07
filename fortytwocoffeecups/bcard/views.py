@@ -21,7 +21,14 @@ def edit(request):
 
     if request.method == 'POST':
         form = EditBusinessCardForm(request.POST)
+
         if form.is_valid():
+            for a in ('first_name', 'last_name', 'description', 'email'):
+                v = form.cleaned_data.get(a, None)
+                if v is not None:
+                    setattr(person, a, v)
+            person.save()
+
             return HttpResponseRedirect('/')
 
     return render_to_response('edit.html',
