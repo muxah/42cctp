@@ -27,7 +27,7 @@ class EditBCFormTest(TestCase):
 
     def test_existence_and_format(self):
         try:
-            from bcard.form import EditBusinessCardForm
+            from bcard.forms import EditBusinessCardForm
         except ImportError as e:
             self.fail(e)
         else:
