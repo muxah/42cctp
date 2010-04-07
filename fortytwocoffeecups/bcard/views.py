@@ -10,3 +10,7 @@ def home(request):
         person = None
 
     return render_to_response('home.html', {'person': person,})
+
+
+def edit(request):
+    return render_to_response('edit.html', {})
