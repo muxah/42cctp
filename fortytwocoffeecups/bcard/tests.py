@@ -91,6 +91,16 @@ class EditBCViewTest(TestCase):
             for k, v in d.items():
                  self.assertEqual(unicode(v), getattr(person, k))
 
+class CSSTest(TestCase):
+
+    def test_integration(self):
+        from urls import settings as S
+        from settings import MEDIA_URL as MU
+        from settings import MEDIA_ROOT as MR
+
+        self.assertTrue(MU)
+        self.assertTrue(MR)
+
 
 __test__ = {"doctest": """
 >>> from bcard.views import home
