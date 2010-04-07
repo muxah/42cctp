@@ -3,7 +3,7 @@
 {% block body %}
     <p><a href="{% url bcard.views.home %}">home</a></p>
     <br />
-    <form action="" method="post" id="edit_business_card_form">
+    <form action="{% url bcard.views.edit %}" method="post" id="edit_business_card_form">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit"/>
     </form>
