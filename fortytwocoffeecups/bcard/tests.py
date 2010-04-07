@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import Client
 import django
 
 
@@ -48,6 +49,9 @@ class EditBCFormTest(TestCase):
 
 class EditBCViewTest(TestCase):
 
+    def setUp(self):
+        self.client = Client()
+
     def test_existance_and_format(self):
         try:
             from views import edit
@@ -63,6 +67,15 @@ class EditBCViewTest(TestCase):
             else:
                 cls = django.http.HttpResponse
                 self.assertTrue(isinstance(response, cls))
+
+    def test_integration(self):
+        try:
+            from urls import edit
+        except ImportError as e:
+            self.fail(e)
+
+        response = self.client.get('/edit/')
+        self.failUnlessEqual(response.status_code, 200)
 
 
 __test__ = {"doctest": """
