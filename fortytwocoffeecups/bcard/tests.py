@@ -34,9 +34,10 @@ class EditBCFormTest(TestCase):
             import django
             cls = django.forms.models.ModelFormMetaclass
             self.assertTrue(isinstance(EditBusinessCardForm, cls))
+            fields = [f.name for f in EditBusinessCardForm().visible_fields()]
 
             for a in ('first_name', 'last_name', 'email', 'description',):
-                self.assertTrue(hasattr(EditBusinessCardForm, a))
+                self.assertTrue(a in fields)
 
     def test_integration(self):
         try:
