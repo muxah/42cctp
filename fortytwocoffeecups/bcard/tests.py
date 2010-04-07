@@ -1,3 +1,28 @@
+from django.test import TestCase
+
+
+class TemlateContextProcessorsTest(TestCase):
+
+    def test_existence_and_format(self):
+        try:
+            from bcard.context_processors import settings
+        except ImportError as e:
+            self.fail(e)
+        else:
+            result = settings('dummy')
+            self.assertTrue(isinstance(result, dict))
+            self.assertRaises(TypeError, settings)
+
+    def test_integration(self):
+        try:
+            from settings import TEMPLATE_CONTEXT_PROCESSORS
+        except ImportError as e:
+            self.fail(e)
+        else:
+            cpf = 'bcard.context_processors.settings'
+            self.assertTrue(cpf in TEMPLATE_CONTEXT_PROCESSORS)
+
+
 __test__ = {"doctest": """
 >>> from bcard.views import home
 >>> home()
