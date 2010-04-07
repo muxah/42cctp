@@ -89,8 +89,7 @@ class EditBCViewTest(TestCase):
 
             person = BusinessCard.objects.get(pk=1)
             for k, v in d.items():
-                if v:
-                    self.assertEqual(unicode(v), getattr(person, k))
+                 self.assertEqual(unicode(v), getattr(person, k))
 
 
 __test__ = {"doctest": """
