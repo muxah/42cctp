@@ -1,3 +1,11 @@
-ul {
+td.error {
     color: red;
+}
+
+table {
+    margin-left: 30%;
+}
+
+#submit {
+    text-align: right;
 }

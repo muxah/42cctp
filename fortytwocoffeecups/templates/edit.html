@@ -5,10 +5,22 @@
 {% endblock head %}
 
 {% block body %}
-    <form action="{% url bcard.views.edit %}" method="post" id="edit_business_card_form">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit"/>
-    </form>
-    <br />
     <p><a href="{% url bcard.views.home %}">home</a></p>
+    <form action="{% url bcard.views.edit %}" method="post" id="edit_business_card_form">{% csrf_token %}
+        <table>
+        {% for f in form %}
+            <tr>
+                <td>{{ f.label_tag }}:</td>
+                <td>{{ f }}</td>
+            {% for e in f.errors %}
+                <td class="error">{{ e }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+            <tr>
+                <td></td>
+                <td id="submit"><input type="submit" value="Apply changes"/></td>
+            </tr>
+        </table>
+    </form>
 {% endblock body%}
