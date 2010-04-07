@@ -13,4 +13,5 @@ def home(request):
 
 
 def edit(request):
-    return render_to_response('edit.html', {})
+    form = EditBusinessCardForm()
+    return render_to_response('edit.html', {'form': form})

@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body %}
-        <p><a href="{% url bcard.views.home %}">home</a>
+    <p><a href="{% url bcard.views.home %}">home</a></p>
+    <br />
+    <form action="" method="post" id="edit_business_card_form">
+        {{ form.as_p }}
+        <input type="submit"/>
+    </form>
 {% endblock body%}
