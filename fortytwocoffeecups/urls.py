@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import *
 
 from bcard.views import home
+from bcard.views import edit
 
 
 urlpatterns = patterns('',
     (r'^$', home),
+    (r'^edit/$', edit),
     # Example:
     # (r'^fortytwocoffeecups/', include('fortytwocoffeecups.foo.urls')),
 
