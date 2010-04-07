@@ -1,5 +1,7 @@
 from django.shortcuts import render_to_response
 from models import BusinessCard
+from forms import EditBusinessCardForm
+
 
 def home(request):
     try:
