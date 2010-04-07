@@ -53,6 +53,10 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^q1w(8s06!bzp+ett38&c$k4ljpr0g35a73ek&u+#5a4%$i_pr'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'bcard.context_processors.settings',
+)
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
