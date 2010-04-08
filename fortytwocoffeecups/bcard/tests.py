@@ -102,6 +102,20 @@ class CSSTest(TestCase):
         self.assertTrue(MR)
 
 
+class AuthHomePageTest(TestCase):
+
+    def setUp(self):
+        from settings import LOGIN_URL as LU
+        self.client = Client()
+        self.url = LU
+
+    def test_integration(self):
+        from views import login_required
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+
+
 __test__ = {"doctest": """
 >>> from bcard.views import home
 >>> home()
