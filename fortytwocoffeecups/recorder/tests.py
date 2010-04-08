@@ -14,34 +14,19 @@ class RequestIsStoredTest(TestCase):
         e = self.expected % 'GET'
         self.failUnless(e in request)
 
-
     def test_post_is_stored(self):
         self.client.post('/', self.d)
         request = RecordedRequest.objects.latest('pk').request
         e = self.expected % 'POST'
         self.failUnless(e in request)
 
+    def test_existence_and_format(self):
+        from recorder.middleware import RecordingMiddleware as RM
+        self.assertTrue(hasattr(RM, 'process_request'))
+        self.assertRaises(TypeError, RM.edit)
+        self.assertRaises(TypeError, RM().edit)
 
-__test__ = {"doctest": """
->>> from recorder.middleware import RecordingMiddleware as RM
->>> hasattr(RM, 'process_request')
-True
-
->>> RM.process_request()
-Traceback (most recent call last):
-...
-TypeError: unbound method process_request() must be called with ...
-
->>> RM().process_request()
-Traceback (most recent call last):
-...
-TypeError: process_request() takes exactly 2 ...
-
->>> RM().process_request('dummy request')
-
->>> from settings import MIDDLEWARE_CLASSES as MC
->>> 'recorder.middleware.RecordingMiddleware' in MC
-True
-
->>> from models import RecordedRequest as RR
-"""}
+    def test_integration(self):
+        from models import RecordedRequest
+        from settings import MIDDLEWARE_CLASSES as MC
+        self.assertTrue('recorder.middleware.RecordingMiddleware' in MC)
