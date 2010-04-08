@@ -114,24 +114,16 @@ class AuthHomePageTest(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
+    def test_existence(self):
+        from bcard.views import home
+        from settings import TEMPLATE_DIRS as TD
+
+        self.assertRaises(TypeError, home)
+        self.assertTrue(TD)
 
 
-__test__ = {"doctest": """
->>> from bcard.views import home
->>> home()
-Traceback (most recent call last):
-...
-TypeError: home() takes exactly 1 ...
 
->>> type(home('1'))
-<class 'django.http.HttpResponse'>
-
->>> from settings import TEMPLATE_DIRS
->>> bool(TEMPLATE_DIRS)
-True
-
->>> from django.test.client import Client
->>> c = Client()
+"""
 >>> response = c.get('/')
 >>> response.status_code
 200
@@ -151,4 +143,4 @@ True
 >>> bc.description in rc
 True
 
-"""}
+"""

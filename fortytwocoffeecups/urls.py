@@ -8,6 +8,8 @@ from bcard.views import edit
 urlpatterns = patterns('',
     (r'^$', home),
     (r'^edit/$', edit),
+    (r'^login/$', 'django.contrib.auth.views.login',
+        {'template_name': 'login.html'}),
     # Example:
     # (r'^fortytwocoffeecups/', include('fortytwocoffeecups.foo.urls')),
 
