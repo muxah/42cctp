@@ -31,3 +31,11 @@ End time:    Tuesday, April 8, 2010, 02:00
 Total:       04:40
 
 Main time consumers: tests.
+
+
+Ticket #2:
+Start time:  Tuesday, April 8, 2010, ##:##
+End time:    Saturday, April 10, 2010, 20:00
+Total:       03:30
+
+Main time consumers: templates, tests, refactoring.
