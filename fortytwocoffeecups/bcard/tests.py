@@ -109,6 +109,9 @@ class AuthTest(TestCase):
         self.client = Client()
         self.url = LU
         self.template = 'login.html'
+        self.landing_url = '/'
+        self.credentials = {'username': 'mynameisMike', 'password': 'letmein',}
+        self.intruder = {'username': 'evil', 'password': 'someone',}
 
     def test_integration(self):
         from views import login_required
@@ -120,6 +123,12 @@ class AuthTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('<!DOCTYPE html' in response.content)
         self.assertTrue(self.template in [t.name for t in response.template])
+
+    def test_logging_in(self):
+        response = self.client.post(self.url, self.intruder, follow=True)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(self.url, self.credentials, follow=True)
+        self.assertEqual(response.status_code, 302)
 
     def test_log_out_page(self):
         destination = 'http://testserver' + self.url
