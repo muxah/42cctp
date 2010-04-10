@@ -36,13 +36,16 @@ class EditBCFormTest(TestCase):
         self.client.logout()
 
     def test_form_existence_and_format(self):
-        from bcard.forms import EditBusinessCardForm
+        from bcard.forms import EditBusinessCardForm as EBCF
         cls = django.forms.models.ModelFormMetaclass
-        self.assertTrue(isinstance(EditBusinessCardForm, cls))
-        fields = [f.name for f in EditBusinessCardForm().visible_fields()]
+        self.assertTrue(isinstance(EBCF, cls))
+        fields = [f.name for f in EBCF().visible_fields()]
 
         for a in BCARD_FIELDS:
             self.assertTrue(a in fields)
+
+        for i in range(len(fields)):
+            self.assertEqual(fields[i], BCARD_FIELDS[::-1][i])
 
     def test_form_integration(self):
         from views import EditBusinessCardForm
