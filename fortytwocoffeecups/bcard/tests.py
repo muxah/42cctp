@@ -102,17 +102,36 @@ class CSSTest(TestCase):
         self.assertTrue(MR)
 
 
-class AuthHomePageTest(TestCase):
+class AuthTest(TestCase):
 
     def setUp(self):
         from settings import LOGIN_URL as LU
         self.client = Client()
         self.url = LU
+        self.template = 'login.html'
 
     def test_integration(self):
         from views import login_required
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+    def test_login_page(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('<!DOCTYPE html' in response.content)
+        self.assertTrue(self.template in [t.name for t in response.template])
+
+    def test_log_out_page(self):
+        destination = 'http://testserver' + self.url
+        response = self.client.get('/logout/', follow=True)
+        self.assertTrue((destination, 302) in response.redirect_chain)
+        self.assertTrue(self.template in [t.name for t in response.template])
+
+
+class HomePageTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
 
     def test_existence(self):
         from bcard.views import home
@@ -120,11 +139,6 @@ class AuthHomePageTest(TestCase):
 
         self.assertRaises(TypeError, home)
         self.assertTrue(TD)
-
-class HomePageTest(TestCase):
-
-    def setUp(self):
-        self.client = Client()
 
     def test_content(self):
         response = self.client.get('/')
