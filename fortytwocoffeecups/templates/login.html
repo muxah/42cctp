@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <link rel="stylesheet" type="text/css" href="/static/css/edit.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+{% endblock header %}
+
 {% block content %}
     <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+        <div class="error">
+        {% if form.errors %}
+            Your username and password didn't match. Please try again.
+        {% endif %}
+        </div>
         <table>
-            <tr>
-                <td colspan=100% >
-                {% if form.errors %}
-                    Your username and password didn't match. Please try again.
-                {% endif %}
-                <td>
-            </tr>
             <tr>
                 <td>
                     <acronym title="mynameisMike">
@@ -26,9 +29,12 @@
                 </td>
                 <td>{{ form.password }}</td>
             </tr>
+            <tr>
+                <td colspan=100% id="submit">
+                    <input type="submit" value="login" />
+                </td>
+            </tr>
         </table>
-
-        <input type="submit" value="login" />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
 {% endblock content %}
