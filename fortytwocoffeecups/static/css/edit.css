@@ -4,8 +4,15 @@
 
 table {
     margin-left: 30%;
+    margin-top: 10%;
 }
 
 #submit {
     text-align: right;
+}
+
+#home {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }

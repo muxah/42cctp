@@ -1,11 +1,11 @@
-{% extends 'locked.html' %}
+{% extends 'protected.html' %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/css/edit.css" />
 {% endblock head %}
 
 {% block body %}
-    <p><a href="{% url bcard.views.home %}">home</a></p>
+    <a id="home" href="{% url bcard.views.home %}">home</a>
     <form action="{% url bcard.views.edit %}" method="post" id="edit_business_card_form">{% csrf_token %}
         <table>
         {% for f in form %}

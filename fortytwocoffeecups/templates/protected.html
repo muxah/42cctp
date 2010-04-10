@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block header %}
+    <link rel="stylesheet" type="text/css" href="/static/css/protected.css" />
     {% block head %}
     {% endblock head %}
 {% endblock header %}
@@ -10,6 +11,6 @@
     {% block body %}
     {% endblock body %}
     <div>
-        <a href="{% url django.contrib.auth.views.logout_then_login %}">log out</a>
+        <a id="logout" href="{% url django.contrib.auth.views.logout_then_login %}">log out</a>
     </div>
 {% endblock content %}
