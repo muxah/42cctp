@@ -1,1 +1,25 @@
-[{"pk": 1, "model": "bcard.businesscard", "fields": {"first_name": "John", "last_name": "Doe", "description": "This name is used as a placeholder name in a legal action, case or discussion for a male party, whose true identity is unknown or must be withheld for legal reasons. The name is also used to refer to a male corpse or hospital patient whose identity is unknown. This practice is widely used in the United States and Canada, but is rare in other English-speaking countries (including the United Kingdom itself, from where its use in a legal context  see Origin below).originates ", "email": "john.doe@gmail.com"}}, {"pk": 1, "model": "auth.user", "fields": {"username": "mynameisMike", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2010-04-09 05:43:08", "groups": [], "user_permissions": [], "password": "sha1$b1a8a$d4c428c056c93415d964b63956f401ee43ebe3cd", "email": "mike@42cc.com", "date_joined": "2010-04-09 05:43:08"}}]
+[
+    {"pk": 1,
+     "model": "bcard.businesscard",
+     "fields": {"first_name": "John",
+                "last_name": "Doe",
+                "description": "This name is used as a placeholder name in a legal action, case or discussion for a male party, whose true identity is unknown or must be withheld for legal reasons. The name is also used to refer to a male corpse or hospital patient whose identity is unknown. This practice is widely used in the United States and Canada, but is rare in other English-speaking countries (including the United Kingdom itself, from where its use in a legal context see Origin below).",
+                "email": "john.doe@gmail.com",
+                "birth_date": "1986-08-20"}
+    },
+    {"pk": 2,
+     "model": "auth.user",
+     "fields": {"username": "mynameisMike",
+                "first_name": "",
+                "last_name": "",
+                "is_active": true,
+                "is_superuser": false,
+                "is_staff": false,
+                "last_login": "2010-04-09 05:43:08",
+                "groups": [],
+                "user_permissions": [],
+                "password": "sha1$b1a8a$d4c428c056c93415d964b63956f401ee43ebe3cd",
+                "email": "mike@42cc.com",
+                "date_joined": "2010-04-09 05:43:08"}
+    }
+]

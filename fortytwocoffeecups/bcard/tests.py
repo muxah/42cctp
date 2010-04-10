@@ -66,7 +66,7 @@ class EditBCFormTest(TestCase):
         person = BusinessCard.objects.get(pk=1)
 
         for a in BCARD_FIELDS:
-            self.assertTrue(getattr(person, a) in response.content)
+            self.assertTrue(str(getattr(person, a)) in response.content)
 
     def test_functionality(self):
         required = {'first_name': 'Mate', 'last_name': 'Rolling'}
@@ -189,4 +189,4 @@ class HomePageTest(TestCase):
         bc = BC.objects.get(pk=1)
 
         for f in BCARD_FIELDS:
-            self.assertTrue(getattr(bc, f) in response.content)
+            self.assertTrue(str(getattr(bc, f)) in response.content)
