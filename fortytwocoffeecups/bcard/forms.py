@@ -8,3 +8,5 @@ class EditBusinessCardForm(forms.ModelForm):
 
     class Meta:
         model = BusinessCard
+        fields = ('first_name', 'last_name', 'email', 'description', 'birth_date',)
+        fields = fields[::-1]
