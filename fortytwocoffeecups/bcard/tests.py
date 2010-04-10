@@ -108,38 +108,49 @@ class AuthTest(TestCase):
         from settings import LOGIN_REDIRECT_URL as LRU
         from settings import LOGIN_URL as LU
         self.client = Client()
-        self.url = LU
+        self.login_url = LU
         self.template = 'login.html'
         self.landing_url = LRU
+        self.logout_url = '/logout/'
         self.credentials = {'username': 'mynameisMike', 'password': 'letmein',}
         self.intruder = {'username': 'evil', 'password': 'someone',}
 
     def test_integration(self):
         from views import login_required
-        response = self.client.get(self.url)
+        response = self.client.get(self.login_url)
         self.assertEqual(response.status_code, 200)
 
     def test_login_page(self):
-        response = self.client.get(self.url)
+        response = self.client.get(self.login_url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(self.template in [t.name for t in response.template])
 
-        stuff = ('<!DOCTYPE html', 'id_password', 'id_username', 'type="submit"')
-        for thing in stuff:
-            self.assertTrue(thing in response.content)
+        elements = ('<!DOCTYPE html', 'id_password', 'id_username', 'type="submit"')
+        for e in elements:
+            self.assertTrue(e in response.content)
 
     def test_logging_in(self):
-        response = self.client.post(self.url, self.intruder, follow=True)
-        self.assertEqual(response.status_code, 200)
-        response = self.client.post(self.url, self.credentials, follow=True)
-        self.assertEqual(response.status_code, 200)
+        for d in (self.intruder, self.credentials):
+            response = self.client.post(self.login_url, d, follow=True)
+            self.assertEqual(response.status_code, 200)
+
         self.assertTrue(('http://testserver/', 302) in response.redirect_chain)
 
     def test_log_out_page(self):
-        destination = 'http://testserver' + self.url
-        response = self.client.get('/logout/', follow=True)
+        destination = 'http://testserver' + self.login_url
+        response = self.client.get(self.logout_url, follow=True)
         self.assertTrue((destination, 302) in response.redirect_chain)
         self.assertTrue(self.template in [t.name for t in response.template])
+
+    def test_logout_link_existence(self):
+        link = 'href="%s"' % self.logout_url
+
+        for url in ('/', '/edit/',):
+            response = self.client.get(url)
+            self.assertTrue(link in response.content)
+
+        response = self.client.get(self.login_url)
+        self.assertFalse(link in response.content)
 
 
 class HomePageTest(TestCase):
