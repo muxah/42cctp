@@ -121,26 +121,19 @@ class AuthHomePageTest(TestCase):
         self.assertRaises(TypeError, home)
         self.assertTrue(TD)
 
+class HomePageTest(TestCase):
 
+    def setUp(self):
+        self.client = Client()
 
-"""
->>> response = c.get('/')
->>> response.status_code
-200
+    def test_content(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('<!DOCTYPE html' in response.content)
+        self.assertTrue('home.html' in [t.name for t in response.template])
 
->>> rc = response.content
->>> rc
-'<!DOCTYPE html...'
+        from models import BusinessCard as BC
+        bc = BC.objects.get(pk=1)
 
->>> from models import BusinessCard as BC
->>> bc = BC.objects.get(pk=1)
->>> bc.first_name in rc
-True
->>> bc.last_name in rc
-True
->>> bc.email in rc
-True
->>> bc.description in rc
-True
-
-"""
+        for f in BCARD_FIELDS:
+            self.assertTrue(getattr(bc, f) in response.content)
