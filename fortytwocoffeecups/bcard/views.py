@@ -8,6 +8,7 @@ from models import BusinessCard
 from forms import EditBusinessCardForm
 
 
+@login_required
 def home(request):
     try:
         person = BusinessCard.objects.get(pk=1)
@@ -17,6 +18,7 @@ def home(request):
     return render_to_response('home.html', {'person': person,})
 
 
+@login_required
 def edit(request):
     person = BusinessCard.objects.get(pk=1)
     form = EditBusinessCardForm(instance=person)
