@@ -105,11 +105,12 @@ class CSSTest(TestCase):
 class AuthTest(TestCase):
 
     def setUp(self):
+        from settings import LOGIN_REDIRECT_URL as LRU
         from settings import LOGIN_URL as LU
         self.client = Client()
         self.url = LU
         self.template = 'login.html'
-        self.landing_url = '/'
+        self.landing_url = LRU
         self.credentials = {'username': 'mynameisMike', 'password': 'letmein',}
         self.intruder = {'username': 'evil', 'password': 'someone',}
 
@@ -121,8 +122,11 @@ class AuthTest(TestCase):
     def test_login_page(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('<!DOCTYPE html' in response.content)
         self.assertTrue(self.template in [t.name for t in response.template])
+
+        stuff = ('<!DOCTYPE html', 'id_password', 'id_username', 'type="submit"')
+        for thing in stuff:
+            self.assertTrue(thing in response.content)
 
     def test_logging_in(self):
         response = self.client.post(self.url, self.intruder, follow=True)
