@@ -132,7 +132,8 @@ class AuthTest(TestCase):
         response = self.client.post(self.url, self.intruder, follow=True)
         self.assertEqual(response.status_code, 200)
         response = self.client.post(self.url, self.credentials, follow=True)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(('http://testserver/', 302) in response.redirect_chain)
 
     def test_log_out_page(self):
         destination = 'http://testserver' + self.url
