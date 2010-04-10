@@ -4,7 +4,7 @@ import django
 
 from models import BusinessCard
 
-BCARD_FIELDS = ('first_name', 'last_name', 'email', 'description',)
+BCARD_FIELDS = ('first_name', 'last_name', 'email', 'description', 'birth_date',)
 CREDENTIALS = {'username': 'mynameisMike', 'password': 'letmein',}
 PROTECTED_PAGES_URLS = ('/', '/edit/',)
 

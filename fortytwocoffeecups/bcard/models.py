@@ -22,6 +22,7 @@ class BusinessCard(models.Model):
     # And fullfill it with the rest information and get it back:
     >>> bc.email = 'dude@awesomer.info'
     >>> bc.description = 'Some stuff about me goes here.'
+    >>> bc.birth_date = '1986-08-20'
     >>> bc.save()
     >>> bc.email
     'dude@awesomer.info'
