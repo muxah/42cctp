@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% block head %}
+    {% endblock head %}
+{% endblock header %}
+
+
+{% block content %}
+    {% block body %}
+    {% endblock body %}
+    <div>
+        <a href="{% url django.contrib.auth.views.logout_then_login %}">log out</a>
+    </div>
+{% endblock content %}
