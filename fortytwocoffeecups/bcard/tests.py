@@ -1,8 +1,10 @@
+import datetime
+import django
 from django.test import TestCase
 from django.test.client import Client
-import django
 
 from models import BusinessCard
+
 
 BCARD_FIELDS = ('first_name', 'last_name', 'email', 'description', 'birth_date',)
 CREDENTIALS = {'username': 'mynameisMike', 'password': 'letmein',}
@@ -70,6 +72,7 @@ class EditBCFormTest(TestCase):
 
     def test_functionality(self):
         required = {'first_name': 'Mate', 'last_name': 'Rolling'}
+        required['birth_date'] = datetime.date(1999, 10, 20)
         optional = {'email': 'mate@rolling.com', 'description': 'Nothing to c.'}
         all = required
         all.update(optional)
@@ -93,7 +96,7 @@ class EditBCFormTest(TestCase):
 
             person = BusinessCard.objects.get(pk=1)
             for k, v in d.items():
-                 self.assertEqual(unicode(v), getattr(person, k))
+                 self.assertEqual(unicode(v), unicode(getattr(person, k)))
 
 class CSSTest(TestCase):
 

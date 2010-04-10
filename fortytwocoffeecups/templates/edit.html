@@ -2,7 +2,11 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/css/edit.css" />
-{% endblock head %}
+    <link rel="stylesheet" type="text/css" href="/media/css/widgets.css"/>
+    <script type="text/javascript" src="/outthebox/jsi18n/"></script>
+    <script type="text/javascript" src="/media/js/core.js"></script>
+    {{ form.media }}
+    {% endblock head %}
 
 {% block body %}
     <a id="home" href="{% url bcard.views.home %}">home</a>

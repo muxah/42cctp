@@ -39,4 +39,4 @@ class BusinessCard(models.Model):
     last_name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, blank=True)
     email = models.EmailField(blank=True)
-    birth_date = models.DateField(blank=True, null=True)
+    birth_date = models.DateField(null=True)

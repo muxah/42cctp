@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     (r'^login/$', 'django.contrib.auth.views.login',
         {'template_name': 'login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
+    (r'^outthebox/jsi18n', 'django.views.i18n.javascript_catalog'),
+
     # Example:
     # (r'^fortytwocoffeecups/', include('fortytwocoffeecups.foo.urls')),
 
