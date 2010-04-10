@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     (r'^edit/$', edit),
     (r'^login/$', 'django.contrib.auth.views.login',
         {'template_name': 'login.html'}),
+    (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
     # Example:
     # (r'^fortytwocoffeecups/', include('fortytwocoffeecups.foo.urls')),
 
