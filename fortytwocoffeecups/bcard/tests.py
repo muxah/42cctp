@@ -196,3 +196,16 @@ class HomePageTest(TestCase):
 
         for f in BCARD_FIELDS:
             self.assertTrue(str(getattr(bc, f)) in response.content)
+
+
+class TemplateTagTest(TestCase):
+
+    def test_integration_and_existence(self):
+        from templatetags.bcard_extra import register
+        self.assertTrue('edit_list' in register.tags.keys())
+
+    def test_functionality(self):
+        from bcard.templatetags.bcard_extra import edit_list
+        from django.contrib.auth.models import User
+        obj = User.objects.get(pk=2)
+        self.assertEqual(edit_list(obj), '/admin/auth/user/2/')
