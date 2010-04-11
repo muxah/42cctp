@@ -209,3 +209,16 @@ class TemplateTagTest(TestCase):
         from django.contrib.auth.models import User
         obj = User.objects.get(pk=2)
         self.assertEqual(edit_list(obj), '/admin/auth/user/2/')
+
+
+class CommandTest(TestCase):
+
+    def test_existence_and_format(self):
+        from django.core.management.base import BaseCommand
+        from management.commands.list import Command
+        import os
+
+        self.assertTrue(hasattr(Command, 'help'))
+        self.assertTrue(hasattr(Command, 'handle'))
+        self.assertEqual(Command.__base__, BaseCommand)
+        os.system('python manage.py list')
