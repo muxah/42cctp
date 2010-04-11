@@ -13,3 +13,14 @@ class RecordedRequest(models.Model):
     """
 
     request = models.TextField(max_length=10000)
+
+
+class RecordedSignal(models.Model):
+    """
+    Model pusposed for storing each post- init/save/delete signal
+    for each project model.
+
+    >>> rs = RecordedSignal(sender='sender model', kwargs="{'dummy': 'args'}")
+    >>> rs.save()
+
+    """
