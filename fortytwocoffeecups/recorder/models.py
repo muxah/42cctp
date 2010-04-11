@@ -1,5 +1,9 @@
 from django.db import models
 
+from django.db.models.signals import post_init
+from django.db.models.signals import post_save
+from django.db.models.signals import post_delete
+
 
 class RecordedRequest(models.Model):
     """
@@ -24,3 +28,16 @@ class RecordedSignal(models.Model):
     >>> rs.save()
 
     """
+
+    sender = models.CharField(max_length=100)
+    kwargs = models.TextField(max_length=1000)
+
+
+def store_signals(sender, **kwargs):
+    if sender != RecordedSignal:
+        RecordedSignal(sender=str(sender), kwargs=repr(kwargs)).save()
+
+
+post_init.connect(store_signals)
+post_save.connect(store_signals)
+post_delete.connect(store_signals)
