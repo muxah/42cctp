@@ -1,6 +1,9 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
+from django.contrib import admin
+admin.autodiscover()
+
 from bcard.views import home
 from bcard.views import edit
 
@@ -12,16 +15,7 @@ urlpatterns = patterns('',
         {'template_name': 'login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
     (r'^outthebox/jsi18n', 'django.views.i18n.javascript_catalog'),
-
-    # Example:
-    # (r'^fortytwocoffeecups/', include('fortytwocoffeecups.foo.urls')),
-
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    (r'^admin/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:

@@ -55,6 +55,7 @@ SECRET_KEY = '^q1w(8s06!bzp+ett38&c$k4ljpr0g35a73ek&u+#5a4%$i_pr'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'bcard.context_processors.settings',
+    'django.core.context_processors.auth',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -80,6 +81,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
