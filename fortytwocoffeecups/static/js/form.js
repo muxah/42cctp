@@ -20,6 +20,8 @@ function disable_form () {
     $.each(items, function(index, item) {
         item.disabled = true;
     });
+
+    $('#progress').css('visibility', 'visible');
 };
 
 

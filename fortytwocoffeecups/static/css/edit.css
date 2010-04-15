@@ -16,3 +16,9 @@ table {
     top: 10px;
     left: 10px;
 }
+
+#progress {
+    width: 28px;
+    height: 28px;
+    visibility: hidden;
+}
