@@ -82,24 +82,32 @@ class EditBCFormTest(TestCase):
         empty = dict([(k, '') for k in BCARD_FIELDS])
         incorrect = all.copy()
         incorrect['email'] = 'broken_email'
-        default = {}
+        ajax_attrs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
 
         for d in (empty, optional, incorrect):
-            response = self.client.post(self.url, d)
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue('class="error"' in response.content)
-            self.assertTrue("name='csrfmiddlewaretoken'" in response.content)
-            self.assertTrue('edit.html' in [t.name for t in response.template])
+            r = self.client.post(self.url, d)
+            ajax_r = self.client.post(self.url, d, **ajax_attrs)
 
-        for d in (default, required, all):
-            response = self.client.post(self.url, all, follow=True)
-            self.assertEqual(response.status_code, 200)
+            for response in (r, ajax_r):
+                self.assertEqual(response.status_code, 200)
+                self.assertTrue('class="error"' in response.content)
+                self.assertTrue("name='csrfmiddlewaretoken'" in response.content)
+                self.assertTrue('edit.html' in [t.name for t in response.template])
+
+        for d in (required, all):
+            r = self.client.post(self.url, d, follow=True)
+            ajax_r = self.client.post(self.url, d, **ajax_attrs)
+
+            for response in (ajax_r, r):
+                self.assertEqual(response.status_code, 200)
+                person = BusinessCard.objects.get(pk=1)
+
+                for k, v in d.items():
+                     self.assertEqual(unicode(v), unicode(getattr(person, k)))
+
             self.assertTrue(('http://testserver/', 302) in response.redirect_chain)
             self.assertTrue('home.html' in [t.name for t in response.template])
 
-            person = BusinessCard.objects.get(pk=1)
-            for k, v in d.items():
-                 self.assertEqual(unicode(v), unicode(getattr(person, k)))
 
 class CSSTest(TestCase):
 
