@@ -10,7 +10,8 @@ from bcard.views import edit
 
 urlpatterns = patterns('',
     (r'^$', home),
-    (r'^edit/$', edit),
+    url(r'^edit/$', edit, {'template': 'edit.html'}, name='edit'),
+    (r'^edit/form/$', edit, {'template': 'form.html'}),
     (r'^login/$', 'django.contrib.auth.views.login',
         {'template_name': 'login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),

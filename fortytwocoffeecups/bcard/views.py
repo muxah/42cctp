@@ -19,7 +19,7 @@ def home(request):
 
 
 @login_required
-def edit(request):
+def edit(request, template):
     person = BusinessCard.objects.get(pk=1)
     form = EditBusinessCardForm(instance=person)
 
@@ -33,8 +33,9 @@ def edit(request):
                     setattr(person, a, v)
             person.save()
 
-            return HttpResponseRedirect('/')
+            if not request.is_ajax():
+                return HttpResponseRedirect('/')
 
-    return render_to_response('edit.html',
+    return render_to_response(template,
                              {'form': form},
                              context_instance=RequestContext(request))

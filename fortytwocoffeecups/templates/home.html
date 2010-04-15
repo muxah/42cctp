@@ -7,6 +7,6 @@
         <p><a href="emailto:{{ person.email }}">{{ person.email }}</a></p>
         <p>{{ person.description }}</p>
         <br />
-        <p><a href="{% url bcard.views.edit %}">edit</a></p>
+        <p><a href="{% url edit %}">edit</a></p>
         {% endif %}
 {% endblock body%}

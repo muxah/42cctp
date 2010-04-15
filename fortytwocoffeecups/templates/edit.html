@@ -6,25 +6,14 @@
     <script type="text/javascript" src="/outthebox/jsi18n/"></script>
     <script type="text/javascript" src="/media/js/core.js"></script>
     {{ form.media }}
+    <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/static/js/form.js"></script>
     {% endblock head %}
 
 {% block body %}
     <a id="home" href="{% url bcard.views.home %}">home</a>
-    <form action="{% url bcard.views.edit %}" method="post" id="edit_business_card_form">{% csrf_token %}
-        <table>
-        {% for f in form %}
-            <tr>
-                <td>{{ f.label_tag }}:</td>
-                <td>{{ f }}</td>
-            {% for e in f.errors %}
-                <td class="error">{{ e }}</td>
-            {% endfor %}
-            </tr>
-        {% endfor %}
-            <tr>
-                <td></td>
-                <td id="submit"><input type="submit" value="Apply changes"/></td>
-            </tr>
-        </table>
+    <form action="{% url edit %}" method="post" id="edit_business_card_form">{% csrf_token %}
+    {% include "form.html" %}
     </form>
 {% endblock body%}

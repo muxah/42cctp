@@ -1,0 +1,16 @@
+    <table>
+    {% for f in form %}
+        <tr>
+            <td>{{ f.label_tag }}:</td>
+            <td>{{ f }}</td>
+        {% for e in f.errors %}
+            <td class="error">{{ e }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+        <tr>
+            <td colspan=2 id="submit">
+                <input type="submit" value="Apply changes"/>
+            </td>
+        </tr>
+    </table>
