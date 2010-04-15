@@ -62,6 +62,7 @@ class EditBCFormTest(TestCase):
             self.assertTrue(id in response.content)
 
         self.assertTrue('method="post"' in response.content)
+        self.assertTrue('id="progress"' in response.content)
 
     def test_view_integration(self):
         from urls import edit
