@@ -223,11 +223,24 @@ class TemplateTagTest(TestCase):
 class CommandTest(TestCase):
 
     def test_existence_and_format(self):
+        from django.contrib.contenttypes.models import ContentType
         from django.core.management.base import BaseCommand
         from management.commands.list import Command
         import os
 
+        filename = './list.txt'
+
         self.assertTrue(hasattr(Command, 'help'))
         self.assertTrue(hasattr(Command, 'handle'))
         self.assertEqual(Command.__base__, BaseCommand)
-        os.system('python manage.py list')
+        os.system('python manage.py list > ' + filename)
+
+        models = [m.model.lower() for m in ContentType.objects.all()]
+        lines = [L.strip().lower() for L in open(filename).readlines()]
+        lines = [L.split()[0] for L in lines if L]
+        lines = map(unicode, lines)
+
+        for model in models:
+            self.assertTrue(model in lines)
+
+        os.system('rm ' + filename)
