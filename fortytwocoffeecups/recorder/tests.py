@@ -38,13 +38,13 @@ class SignalIsStoredTest(TestCase):
         from models import RecordedRequest as RR
         from models import RecordedSignal as RS
 
-        before_init = len(RS.objects.all())
+        before_init = RS.objects.count()
         obj = RR(request=repr({'dummy': 'request'}))
-        after_init = len(RS.objects.all())
+        after_init = RS.objects.count()
         obj.save()
-        after_save = len(RS.objects.all())
+        after_save = RS.objects.count()
         obj.delete()
-        after_delete = len(RS.objects.all())
+        after_delete = RS.objects.count()
 
         self.assertEqual(after_init - before_init, 1)
         self.assertEqual(after_save - after_init, 1)
