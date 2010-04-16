@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
         for ct in ContentType.objects.all():
             name = ct.model.capitalize()
-            amount = len(ct.model_class().objects.all())
+            amount = ct.model_class().objects.count()
 
             print "\t%s (%d)" % (name, amount)
 
