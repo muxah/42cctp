@@ -15,7 +15,7 @@ def home(request):
     except DoesNotExist:
         person = None
 
-    return render_to_response('home.html', {'person': person,})
+    return render_to_response('home.html', {'person': person})
 
 
 @login_required
