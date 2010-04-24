@@ -20,7 +20,7 @@ if django.VERSION[1] > 1:  # If using django 1.2.+
                 'NAME': os.path.join(PROJECT_ROOT, 'db.db')
             }
     }
-else:  # django 1.1 fallback
+else:                      # django 1.1 fallback
     DATABASE_ENGINE = 'sqlite3'
     DATABASE_NAME = os.path.join(PROJECT_ROOT, 'db.db')
     DATABASE_USER = ''
@@ -74,12 +74,17 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
+if django.VERSION[1] > 1:  # If using django 1.2.+
+    csrf_mv = 'django.middleware.csrf.CsrfMiddleware'
+else:                      # django 1.1 fallback
+    csrf_mv = 'django.contrib.csrf.middleware.CsrfMiddleware'
+
 MIDDLEWARE_CLASSES = (
     'recorder.middleware.RecordingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    csrf_mv,
 )
 
 ROOT_URLCONF = 'fortytwocoffeecups.urls'
