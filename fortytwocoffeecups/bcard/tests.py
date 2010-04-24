@@ -6,8 +6,14 @@ from django.test.client import Client
 from models import BusinessCard
 
 
-BCARD_FIELDS = ('first_name', 'last_name', 'email', 'description', 'birth_date',)
-CREDENTIALS = {'username': 'mynameisMike', 'password': 'letmein',}
+BCARD_FIELDS = (
+        'first_name',
+        'last_name',
+        'email',
+        'description',
+        'birth_date',
+)
+CREDENTIALS = {'username': 'mynameisMike', 'password': 'letmein'}
 PROTECTED_PAGES_URLS = ('/', '/edit/',)
 
 
@@ -77,7 +83,7 @@ class EditBCFormTest(TestCase):
     def test_functionality(self):
         required = {'first_name': 'Mate', 'last_name': 'Rolling'}
         required['birth_date'] = datetime.date(1999, 10, 20)
-        optional = {'email': 'mate@rolling.com', 'description': 'Nothing to c.'}
+        optional = {'email': 'mate@rolling.com', 'description': 'Nothing to C'}
         all = required
         all.update(optional)
         empty = dict([(k, '') for k in BCARD_FIELDS])
@@ -89,25 +95,25 @@ class EditBCFormTest(TestCase):
             r = self.client.post(self.url, d)
             ajax_r = self.client.post(self.url, d, **ajax_attrs)
 
-            for response in (r, ajax_r):
-                self.assertEqual(response.status_code, 200)
-                self.assertTrue('class="error"' in response.content)
-                self.assertTrue("name='csrfmiddlewaretoken'" in response.content)
-                self.assertTrue('edit.html' in [t.name for t in response.template])
+            for resp in (r, ajax_r):
+                self.assertEqual(resp.status_code, 200)
+                self.assertTrue('class="error"' in resp.content)
+                self.assertTrue("name='csrfmiddlewaretoken'" in resp.content)
+                self.assertTrue('edit.html' in [t.name for t in resp.template])
 
         for d in (required, all):
             r = self.client.post(self.url, d, follow=True)
             ajax_r = self.client.post(self.url, d, **ajax_attrs)
 
-            for response in (ajax_r, r):
-                self.assertEqual(response.status_code, 200)
+            for resp in (ajax_r, r):
+                self.assertEqual(resp.status_code, 200)
                 person = BusinessCard.objects.get(pk=1)
 
                 for k, v in d.items():
-                     self.assertEqual(unicode(v), unicode(getattr(person, k)))
+                    self.assertEqual(unicode(v), unicode(getattr(person, k)))
 
-            self.assertTrue(('http://testserver/', 302) in response.redirect_chain)
-            self.assertTrue('home.html' in [t.name for t in response.template])
+            self.assertTrue(('http://testserver/', 302) in resp.redirect_chain)
+            self.assertTrue('home.html' in [t.name for t in resp.template])
 
 
 class CSSTest(TestCase):
@@ -131,7 +137,7 @@ class AuthTest(TestCase):
         self.template = 'login.html'
         self.landing_url = LRU
         self.logout_url = '/logout/'
-        self.intruder = {'username': 'evil', 'password': 'someone',}
+        self.intruder = {'username': 'evil', 'password': 'someone'}
 
     def test_integration(self):
         from views import login_required
@@ -143,7 +149,12 @@ class AuthTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(self.template in [t.name for t in response.template])
 
-        elements = ('<!DOCTYPE html', 'id_password', 'id_username', 'type="submit"')
+        elements = (
+                '<!DOCTYPE html',
+                'id_password',
+                'id_username',
+                'type="submit"',
+        )
         for e in elements:
             self.assertTrue(e in response.content)
 
@@ -157,10 +168,10 @@ class AuthTest(TestCase):
     def test_pages_protection(self):
         redirect_url = 'http://testserver' + self.login_url + '?next=%s'
         for url in PROTECTED_PAGES_URLS:
-            response = self.client.get(url, follow=True)
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(self.template in [t.name for t in response.template])
-            self.assertTrue((redirect_url % url, 302) in response.redirect_chain)
+            resp = self.client.get(url, follow=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertTrue(self.template in [t.name for t in resp.template])
+            self.assertTrue((redirect_url % url, 302) in resp.redirect_chain)
 
     def test_log_out_page(self):
         destination = 'http://testserver' + self.login_url
