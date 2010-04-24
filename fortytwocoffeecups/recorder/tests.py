@@ -2,7 +2,9 @@ from django.test import TestCase
 from django.test.client import Client
 from models import RecordedRequest
 
+
 class RequestIsStoredTest(TestCase):
+
     def setUp(self):
         self.client = Client()
         self.d = {'one': 1, 'two': 2}
