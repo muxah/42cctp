@@ -1,5 +1,6 @@
 # Django settings for fortytwocoffeecups project.
 import os
+import django
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
@@ -12,12 +13,20 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = ''
-DATABASE_NAME = ''
-DATABASE_USER = ''
-DATABASE_PASSWORD = ''
-DATABASE_HOST = ''
-DATABASE_PORT = ''
+if django.VERSION[1] > 1:  # If using django 1.2.+
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(PROJECT_ROOT, 'db.db')
+            }
+    }
+else:  # django 1.1 fallback
+    DATABASE_ENGINE = 'sqlite3'
+    DATABASE_NAME = os.path.join(PROJECT_ROOT, 'db.db')
+    DATABASE_USER = ''
+    DATABASE_PASSWORD = ''
+    DATABASE_HOST = ''
+    DATABASE_PORT = ''
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
