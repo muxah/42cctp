@@ -1,5 +1,9 @@
 Do 'syncdb' before running the tests.
 
+Better tastes with:
+>>> django.VERSION
+(1, 2, 0, 'alpha', 0)
+
 
 Ticket #1:
 Start time:  Tuesday, April 6, 2010, 02:30
