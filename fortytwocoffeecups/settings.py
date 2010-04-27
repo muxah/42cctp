@@ -13,20 +13,21 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-if django.VERSION[1] > 1:  # If using django 1.2.+
-    DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': os.path.join(PROJECT_ROOT, 'db.db')
-            }
-    }
-else:                      # django 1.1 fallback
-    DATABASE_ENGINE = 'sqlite3'
-    DATABASE_NAME = os.path.join(PROJECT_ROOT, 'db.db')
-    DATABASE_USER = ''
-    DATABASE_PASSWORD = ''
-    DATABASE_HOST = ''
-    DATABASE_PORT = ''
+# django 1.1 fallback
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = os.path.join(PROJECT_ROOT, 'db.db')
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+DATABASE_HOST = ''
+DATABASE_PORT = ''
+
+# If using django 1.2.+
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': DATABASE_NAME
+        }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
