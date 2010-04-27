@@ -1,3 +1,6 @@
+Do 'syncdb' before running the tests.
+
+
 Ticket #1:
 Start time:  Tuesday, April 6, 2010, 02:30
 End time:    Tuesday, April 6, 2010, 06:00
@@ -103,3 +106,9 @@ Ticket #14:
 Start time:  Saturday, April 24, 2010, 05:40
 End time:    Saturday, April 24, 2010, 05:55
 Total:       00:15
+
+
+Ticket #15:
+Start time:  Tuesday, April 27, 2010, 17:45
+End time:    Tuesday, April 27, 2010, 18:20
+Total:       00:35
