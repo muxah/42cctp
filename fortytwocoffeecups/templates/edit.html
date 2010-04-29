@@ -2,14 +2,14 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/css/edit.css" />
-    <link rel="stylesheet" type="text/css" href="/media/css/widgets.css"/>
-    <script type="text/javascript" src="/outthebox/jsi18n/"></script>
-    <script type="text/javascript" src="/media/js/core.js"></script>
-    {{ form.media }}
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.ui.core.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.ui.datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.ui.theme.css"/>
     <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.form.js"></script>
     <script type="text/javascript" src="/static/js/form.js"></script>
-    {% endblock head %}
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.custom.min.js"></script>
+{% endblock head %}
 
 {% block body %}
     <a id="home" href="{% url bcard.views.home %}">home</a>
